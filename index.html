@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Games Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>🎮 My Games Hub</h1>
+    <p>Play simple browser games!</p>
+  </header>
+
+  <main>
+    <div class="game-list">
+      <div class="game-card" onclick="launchGame('ticTacToe')">
+        <h2>Tic-Tac-Toe</h2>
+        <p>Classic 2-player game</p>
+      </div>
+      <div class="game-card" onclick="launchGame('memoryGame')">
+        <h2>Memory Game</h2>
+        <p>Flip and match cards</p>
+      </div>
+    </div>
+
+    <div id="game-container"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Games Hub</p>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
