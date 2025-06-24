@@ -1,10 +1,17 @@
 function launchGame(gameName) {
   const container = document.getElementById('game-container');
-  container.innerHTML = '';
+  container.innerHTML = ''; // Clear previous game
 
   if (gameName === 'ticTacToe') {
-    container.innerHTML = `<iframe src="games/tictactoe.html" width="400" height="400" style="border:none;"></iframe>`;
-  } else if (gameName === 'memoryGame') {
-    container.innerHTML = `<iframe src="games/memory.html" width="400" height="400" style="border:none;"></iframe>`;
+    createTicTacToe(container);
   }
 }
+
+function createTicTacToe(container) {
+  let currentPlayer = 'X';
+  let board = Array(3).fill(null).map(() => Array(3).fill(''));
+  let status = document.createElement('div');
+  status.id = 'status';
+  status.textContent = `Player ${currentPlayer}'s turn`;
+  container.appendChild
+
