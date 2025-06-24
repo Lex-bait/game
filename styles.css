@@ -1,14 +1,18 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background: #121212;
-  color: #f0f0f0;
+  color: #fff;
   text-align: center;
 }
 
 header {
-  background-color: #1f1f1f;
+  background: #1e1e1e;
   padding: 20px;
+}
+
+h1 {
+  margin: 0;
 }
 
 .game-list {
@@ -19,27 +23,51 @@ header {
 }
 
 .game-card {
-  background: #2c2c2c;
+  background: #2d2d2d;
   margin: 15px;
   padding: 20px;
   border-radius: 10px;
-  width: 200px;
   cursor: pointer;
   transition: transform 0.3s ease;
+  width: 200px;
 }
 
 .game-card:hover {
+  background: #3c3c3c;
   transform: scale(1.05);
-  background-color: #3b3b3b;
 }
 
 #game-container {
-  margin-top: 30px;
+  margin: 30px auto;
+  max-width: 400px;
 }
 
-footer {
-  margin-top: 40px;
-  padding: 10px;
-  font-size: 0.9em;
-  color: #999;
+/* Tic Tac Toe styles */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  margin: 20px auto;
 }
+
+.cell {
+  background: #444;
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cell:hover {
+  background: #666;
+}
+
+#status {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+  
