@@ -8,21 +8,32 @@
       display: block;
       margin: 0 auto;
       background: #000;
+      border: 2px solid #fff;
+    }
+    body {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+  <h1>🏃 Parkour Game</h1>
+  <p>Press <strong>Space</strong> to jump (double jump enabled)</p>
   <canvas id="gameCanvas" width="800" height="400"></canvas>
 
   <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
+    // Background layers
     const backgroundLayers = [
-      { x: 0, speed: 0.5, color: '#1a1a2e', height: canvas.height },
-      { x: 0, speed: 1.5, color: '#2f3e46', height: canvas.height * 0.6 }
+      { x: 0, speed: 0.5, color: '#87CEEB', height: canvas.height },      // Sky blue
+      { x: 0, speed: 1.5, color: '#228B22', height: canvas.height * 0.4 } // Green ground
     ];
 
+    // Player
     const player = {
       x: 50,
       y: 300,
@@ -30,15 +41,54 @@
       height: 40,
       dy: 0,
       gravity: 0.6,
-      jumpPower: -18,
+      jumpPower: -16,
       jumpCount: 0,
       maxJumps: 2
     };
 
+    // Obstacles
+    const obstacles = [];
+    const obstacleWidth = 30;
+    const obstacleGap = 250;
+
+    function spawnObstacle() {
+      const height = 80 + Math.random() * 70;
+      obstacles.push({
+        x: canvas.width,
+        y: canvas.height - height,
+        width: obstacleWidth,
+        height: height
+      });
+    }
+
+    function updateObstacles() {
+      for (let i = obstacles.length - 1; i >= 0; i--) {
+        const obs = obstacles[i];
+        obs.x -= 6;
+
+        ctx.fillStyle = '#ff4444';
+        ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+
+        if (obs.x + obs.width < 0) {
+          obstacles.splice(i, 1);
+        }
+
+        // Collision
+        if (
+          player.x < obs.x + obs.width &&
+          player.x + player.width > obs.x &&
+          player.y + player.height > obs.y
+        ) {
+          alert("💥 Game Over!");
+          resetGame();
+          return;
+        }
+      }
+    }
+
     function drawBackground() {
       backgroundLayers.forEach(layer => {
         layer.x -= layer.speed;
-
         if (layer.x <= -canvas.width) {
           layer.x = 0;
         }
@@ -57,7 +107,7 @@
       player.dy += player.gravity;
       player.y += player.dy;
 
-      // Ground check
+      // Ground
       if (player.y + player.height >= canvas.height) {
         player.y = canvas.height - player.height;
         player.dy = 0;
@@ -65,10 +115,20 @@
       }
 
       // Draw player
-      ctx.fillStyle = 'lime';
+      ctx.fillStyle = '#FFD700'; // gold
       ctx.fillRect(player.x, player.y, player.width, player.height);
+
+      updateObstacles();
     }
 
+    function resetGame() {
+      player.y = 300;
+      player.dy = 0;
+      player.jumpCount = 0;
+      obstacles.length = 0;
+    }
+
+    // Controls
     document.addEventListener('keydown', e => {
       if (e.code === 'Space' && player.jumpCount < player.maxJumps) {
         player.dy = player.jumpPower;
@@ -76,7 +136,9 @@
       }
     });
 
+    // Start game
     setInterval(update, 1000 / 60);
+    setInterval(spawnObstacle, obstacleGap);
   </script>
 </body>
 </html>
