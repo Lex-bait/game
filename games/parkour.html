@@ -44,8 +44,9 @@
       height: 40,
       dy: 0,
       gravity: 0.6,
-      jumpPower: -18,  // Jump higher
-      onGround: true
+      jumpPower: -18,
+      jumpCount: 0,
+      maxJumps: 2
     };
 
     let obstacles = [];
@@ -55,9 +56,9 @@
 
     // Jump on spacebar
     document.addEventListener('keydown', e => {
-      if (e.code === 'Space' && player.onGround && !gameOver) {
+      if (e.code === 'Space' && player.jumpCount < player.maxJumps && !gameOver) {
         player.dy = player.jumpPower;
-        player.onGround = false;
+        player.jumpCount++;
       } else if (gameOver && e.code === 'Enter') {
         resetGame();
       }
@@ -109,9 +110,8 @@
       if (player.y + player.height >= canvas.height) {
         player.y = canvas.height - player.height;
         player.dy = 0;
-        player.onGround = true;
+        player.jumpCount = 0; // Reset jumps
       }
-
       drawPlayer();
 
       // Obstacles
