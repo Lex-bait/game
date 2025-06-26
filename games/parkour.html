@@ -36,18 +36,21 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Player setup
-    const player = {
-      x: 50,
-      y: 300,
-      width: 40,
-      height: 40,
-      dy: 0,
-      gravity: 0.6,
-      jumpPower: -18,
-      jumpCount: 0,
-      maxJumps: 2
-    };
+    const ctx = canvas.getContext('2d');
+    const backgroundLayers = [
+    {
+      x: 0,
+      speed: 0.5,
+      color: '#1a1a2e', // Far background
+      height: canvas.height
+    },
+    {
+      x: 0,
+      speed: 1.5,
+      color: '#2f3e46', // Near background
+      height: canvas.height * 0.6
+    }
+  ];
 
     let obstacles = [];
     let frame = 0;
@@ -100,6 +103,7 @@
 
     function update() {
       if (gameOver) return;
+      drawBackground();
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
