@@ -49,7 +49,7 @@
     // Obstacles
     const obstacles = [];
     const obstacleWidth = 30;
-    const obstacleGap = 250;
+    const obstacleGap = 1200; // Fewer obstacles (1 every 1.2 seconds)
 
     function spawnObstacle() {
       const height = 80 + Math.random() * 70;
@@ -138,7 +138,7 @@
 
     // Start game
     setInterval(update, 1000 / 60);
-    setInterval(spawnObstacle, obstacleGap);
+    setInterval(spawnObstacle, obstacleGap); // Slower spawning
   </script>
 </body>
 </html>
