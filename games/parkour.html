@@ -44,7 +44,7 @@
       height: 40,
       dy: 0,
       gravity: 0.6,
-      jumpPower: -12,
+      jumpPower: -18,  // Jump higher
       onGround: true
     };
 
@@ -74,19 +74,19 @@
     }
 
     function updateObstacles() {
-      if (frame % 90 === 0) {
-        const height = 30 + Math.random() * 50;
-        obstacles.push({
-          x: canvas.width,
-          y: canvas.height - height,
-          width: 30,
-          height: height
-        });
-      }
+  if (frame % 90 === 0) {
+    const height = 100 + Math.random() * 100; // Taller obstacles
+    obstacles.push({
+      x: canvas.width,
+      y: canvas.height - height,
+      width: 30,
+      height: height
+    });
+  }
 
-      obstacles.forEach(ob => ob.x -= 5);
-      obstacles = obstacles.filter(ob => ob.x + ob.width > 0);
-    }
+  obstacles.forEach(ob => ob.x -= 5);
+  obstacles = obstacles.filter(ob => ob.x + ob.width > 0);
+}
 
     function checkCollision(a, b) {
       return (
